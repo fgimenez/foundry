@@ -17,7 +17,7 @@ use revm::{
     inspectors::NoOpInspector,
     precompile::{PrecompileSpecId, Precompiles},
     primitives::{
-        Account, AccountInfo, Bytecode, Env, EnvWithHandlerCfg, EvmState, EvmStorageSlot,
+        state::EvmState, Account, AccountInfo, Bytecode, Env, EnvWithHandlerCfg, EvmStorageSlot,
         HashMap as Map, Log, ResultAndState, SpecId, TransactTo, KECCAK_EMPTY,
     },
     Database, DatabaseCommit, JournaledState,
@@ -796,7 +796,6 @@ impl Backend {
         let mut evm = crate::utils::new_evm_with_inspector(self, env.clone(), inspector);
 
         let res = evm.transact().wrap_err("backend: failed while inspecting")?;
-
         env.env = evm.context.evm.inner.env;
 
         Ok(res)

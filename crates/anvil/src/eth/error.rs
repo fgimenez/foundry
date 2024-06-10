@@ -112,6 +112,7 @@ where
             },
             EVMError::Database(err) => err.into(),
             EVMError::Custom(err) => Self::Message(err),
+            EVMError::Precompile(err) => Self::Message(err),
         }
     }
 }
